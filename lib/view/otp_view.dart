@@ -6,7 +6,9 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:wingman_task/config/colors.dart';
-import 'package:wingman_task/controller/controller.dart';
+import 'package:wingman_task/controller/send_otp_controller.dart';
+import 'package:wingman_task/controller/verfy_otp_controller.dart';
+import 'package:wingman_task/service/verify_otp_service.dart';
 import 'package:wingman_task/view/details_view.dart';
 
 class OtpView extends StatelessWidget {
@@ -14,7 +16,9 @@ class OtpView extends StatelessWidget {
 
   OtpFieldController otpController = OtpFieldController();
 
-  Controller controller = Get.find();
+  VerifyOtpController controller = Get.put(VerifyOtpController());
+
+SendOtpController sendOtpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class OtpView extends StatelessWidget {
           children: [
             OTPTextField(
                 controller: otpController,
-                length: 5,
+                length: 6,
                 width: MediaQuery.of(context).size.width,
                 textFieldAlignment: MainAxisAlignment.spaceAround,
                 fieldWidth: 45,
@@ -43,6 +47,7 @@ class OtpView extends StatelessWidget {
                 }),
             ElevatedButton.icon(
               onPressed: () {
+               controller.verifyOtpDetails(requestId: sendOtpController.otpDetail[0].requestId, code: controller.otp);
                 Get.to(() => DetailsView());
               },
               label: Text(

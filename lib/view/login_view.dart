@@ -8,7 +8,7 @@ import 'package:wingman_task/config/utils.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wingman_task/controller/controller.dart';
+import 'package:wingman_task/controller/send_otp_controller.dart';
 import 'package:wingman_task/service/send_otp_service.dart';
 import 'package:wingman_task/view/otp_view.dart';
 
@@ -74,7 +74,7 @@ class _LoginViewState extends State<LoginView>
     super.dispose();
   }
 
-  Controller controller = Get.put(Controller());
+  SendOtpController controller = Get.put(SendOtpController());
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -245,7 +245,7 @@ class _LoginViewState extends State<LoginView>
                             number = false;
                             controller.toaster("Enter valid number");
                           } else {
-                            SendOtpService.sendOtpService(mobile: controller.mobileNumber.text);
+                           controller.getOtpDetails(mobile: controller.mobileNumber.text);
                             Get.to(() => OtpView());
                           }
                         },

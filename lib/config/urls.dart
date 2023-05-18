@@ -1,7 +1,7 @@
-class Urls{
-    static const baseUrl = 'https://test-otp-api.';
-        static const baseUrl2 = 'https://test-otp-api';
+class Urls {
+  static const baseUrl = 'https://test-otp-api.7474224.xyz/';
 
-  static const sendOtp = '${baseUrl}7474224.xyz/sendotp.php';
-
+  static const sendOtp = '${baseUrl}sendotp.php';
+  static const verifyOtp = '${baseUrl}verifyotp.php';
+  static const submitDetails = '${baseUrl}profilesubmit.php';
 }

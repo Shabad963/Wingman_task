@@ -1,14 +1,18 @@
+import 'dart:developer';
 import 'dart:ui' as prefix;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wingman_task/config/colors.dart';
+import 'package:wingman_task/config/constant.dart';
 import 'package:wingman_task/config/size_config.dart';
 import 'package:wingman_task/config/utils.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wingman_task/controller/controller.dart';
+import 'package:wingman_task/controller/details_controller.dart';
+import 'package:wingman_task/controller/send_otp_controller.dart';
 import 'package:wingman_task/view/home_view.dart';
 import 'package:wingman_task/view/otp_view.dart';
 
@@ -23,8 +27,6 @@ class DetailsView extends StatefulWidget {
 
 class _DetailsViewState extends State<DetailsView>
     with TickerProviderStateMixin {
-  final emailController = TextEditingController();
-  final nameController = TextEditingController();
   AnimationController? _animationController1;
   Animation<double>? _animation1;
   AnimationController? _animationController2;
@@ -64,8 +66,8 @@ class _DetailsViewState extends State<DetailsView>
 
   @override
   void dispose() {
-    emailController.dispose();
-    nameController.dispose();
+    controller.emailController.dispose();
+    controller.nameController.dispose();
     _animationController1!.dispose();
     _animationController2!.dispose();
     _animationController3!.dispose();
@@ -74,7 +76,7 @@ class _DetailsViewState extends State<DetailsView>
     super.dispose();
   }
 
-  Controller controller = Get.put(Controller());
+  DetailsController controller = Get.put(DetailsController());
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -95,7 +97,7 @@ class _DetailsViewState extends State<DetailsView>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-             AnimatedBuilder(
+              AnimatedBuilder(
                   animation: _animationController1!,
                   builder: (context, child) {
                     return Transform(
@@ -116,7 +118,7 @@ class _DetailsViewState extends State<DetailsView>
               SizedBox(
                 height: 20,
               ),
-                 AnimatedBuilder(
+              AnimatedBuilder(
                 animation: _animationController3!,
                 builder: (context, child) {
                   return Transform(
@@ -129,13 +131,13 @@ class _DetailsViewState extends State<DetailsView>
                   );
                 },
                 child: TextFormField(
-                  controller: nameController,
+                  controller: controller.nameController,
                   decoration: InputDecoration(
                       labelText: 'Name', border: OutlineInputBorder()),
                   obscureText: false,
                 ),
               ),
-                SizedBox(
+              SizedBox(
                 height: 15,
               ),
               AnimatedBuilder(
@@ -151,13 +153,11 @@ class _DetailsViewState extends State<DetailsView>
                   );
                 },
                 child: TextFormField(
-                  controller: emailController,
+                  controller: controller.emailController,
                   decoration: InputDecoration(
                       labelText: 'Email', border: OutlineInputBorder()),
                 ),
               ),
-            
-           
               SizedBox(
                 height: 40,
               ),
@@ -173,8 +173,12 @@ class _DetailsViewState extends State<DetailsView>
                   child: Column(
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () {
-                          Get.to(()=>HomeView());
+                        onPressed: () async {
+                          controller.submitDetails(
+                              name: controller.nameController.text,
+                              email: controller.emailController.text);
+
+                          Get.to(() => HomeView());
                         },
                         label: Text(
                           'Submit',

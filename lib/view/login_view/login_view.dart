@@ -63,10 +63,7 @@ class _LoginViewState extends State<LoginView>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CommonText(
-                  title: 'Wingman task',
-                  fontsize: 35.0.sp,
-                ),
+               const MainImage(),
                 SizedBox(
                   height: 2.0.hp,
                 ),
@@ -109,3 +106,4 @@ class _LoginViewState extends State<LoginView>
     }
   }
 }
+

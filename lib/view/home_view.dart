@@ -22,6 +22,7 @@ class HomeView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const MainImage(),
               CommonText(
                 title: 'Logged in as User1235',
                 fontsize: 15.0.sp,

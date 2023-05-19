@@ -3,6 +3,23 @@ import 'package:wingman_task/config/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:wingman_task/config/size_config.dart';
 
+
+class MainImage extends StatelessWidget {
+  const MainImage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      'assets/images/wingman.jpg',
+      height: 100,
+      width: 200,
+    );
+  }
+}
+
+
 class CommonText extends StatelessWidget {
   final double fontsize;
   final String title;

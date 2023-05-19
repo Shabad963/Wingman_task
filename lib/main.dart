@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wingman_task/config/check_login.dart';
-import 'package:wingman_task/config/constant.dart';
-import 'package:wingman_task/view/home_view.dart';
-import 'package:wingman_task/view/login_view/login_view.dart';
 import 'package:wingman_task/view/splash_screen.dart';
 
 

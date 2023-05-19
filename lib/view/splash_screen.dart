@@ -1,10 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wingman_task/common/common_widgets.dart';
-import 'package:wingman_task/config/check_login.dart';
-import 'package:wingman_task/config/colors.dart';
-import 'package:wingman_task/config/size_config.dart';
 import 'package:wingman_task/view/home_view.dart';
 import 'package:wingman_task/view/login_view/login_view.dart';
 
@@ -32,13 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white_color,
       body: Center(
           child: Padding(
         padding: const EdgeInsets.all(58.0),
-        child: CommonText(
-          title: 'Wingman Task',
-          fontsize: 20.0.sp,
+        child: Image.asset( 'assets/images/clock.png',
         ),
       )),
     );

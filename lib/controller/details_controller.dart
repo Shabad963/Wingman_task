@@ -22,7 +22,7 @@ class DetailsController extends GetxController {
     return [...sumbitDetail];
   }
 
-  Future submitDetails({
+  Future submitData({
     required String name,
     required String email,
   }) async {
@@ -55,7 +55,7 @@ class DetailsController extends GetxController {
       loadingBar(context);
       // final isValid = formKey.currentState!.validate();
       // if (!isValid) return;
-      await submitDetails(
+      await submitData(
           name: nameController.text,
           email: emailController.text);
       Get.back();

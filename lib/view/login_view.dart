@@ -2,6 +2,7 @@ import 'dart:ui' as prefix;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wingman_task/common/common_widgets.dart';
 import 'package:wingman_task/config/colors.dart';
 import 'package:wingman_task/config/size_config.dart';
 import 'package:wingman_task/config/utils.dart';
@@ -21,8 +22,7 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView>
-    with TickerProviderStateMixin {
+class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   AnimationController? _animationController1;
@@ -80,16 +80,10 @@ class _LoginViewState extends State<LoginView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(title: "LOGIN"),
+      appBar: appBar(title: ""),
       body: Container(
+        color: white_color,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.white, Colors.indigo],
-          ),
-        ),
         padding: EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
@@ -183,7 +177,7 @@ class _LoginViewState extends State<LoginView>
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             contentPadding:
                                 const EdgeInsets.fromLTRB(8, 15, 10, 5),
-                            fillColor: white_color,
+                            fillColor: grey_color,
                             filled: true,
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0.sp),
@@ -238,39 +232,20 @@ class _LoginViewState extends State<LoginView>
                   child: Column(
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () {
-                          bool number = false;
-
-                          if (!_formKey.currentState!.validate()) {
-                            number = false;
-                            controller.toaster("Enter valid number");
-                          } else {
-                           controller.getOtpDetails(mobile: controller.mobileNumber.text);
-                            Get.to(() => OtpView());
-                          }
-                        },
+                        onPressed: () async {sendOtp(context);},
                         label: Text(
-                          'Log in',
+                          'Continue',
                           style: TextStyle(color: Colors.white),
                         ),
                         style: TextButton.styleFrom(
                             minimumSize: Size.fromHeight(40),
-                            backgroundColor: lightBlueAccent),
+                            backgroundColor: black_color),
                         icon: Icon(Icons.lock),
                       ),
                       SizedBox(
                         height: 24,
                       ),
-                      GestureDetector(
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: lightBlueAccent,
-                              fontSize: 20),
-                        ),
-                        onTap: () {},
-                      ),
+
                       SizedBox(
                         height: 40,
                       ),
@@ -292,5 +267,19 @@ class _LoginViewState extends State<LoginView>
         ),
       ),
     );
+  }
+
+  Future sendOtp(context) async {
+    bool number = false;
+
+    if (!_formKey.currentState!.validate()) {
+      number = false;
+      toaster("Enter valid number");
+    } else {
+      loadingBar(context);
+      await controller.getOtpDetails(mobile: controller.mobileNumber.text);
+      Get.back();
+      Get.to(() => OtpView());
+    }
   }
 }

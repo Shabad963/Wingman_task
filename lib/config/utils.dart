@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:wingman_task/config/colors.dart';
 
-class Utils {
-  static final messengerKey = GlobalKey<ScaffoldMessengerState>();
-
-  static showSnackBar(String? text) {
-    if (text == null) return;
-
-    final snackbar = SnackBar(
-      content: Text(text),
-      backgroundColor: Colors.grey,
-    );
-    messengerKey.currentState!
-      ..removeCurrentSnackBar()
-      ..showSnackBar(snackbar);
-  }
-}
-
-const Color lightBlueAccent = Colors.lightBlueAccent;
-
- AppBar appBar({required String title}) {
-    return AppBar(
+AppBar appBar({required String title}) {
+  return AppBar(
+    elevation: 0,
       centerTitle: true,
-      title: Text(title,style: TextStyle(color: Colors.black),),
+      title: Text(
+        title,
+        style: TextStyle(color: black_color),
+      ),
       backgroundColor: Colors.white,
-    );
-  }
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: white_color,
+        statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+        statusBarBrightness: Brightness.light,
+      ));
+}

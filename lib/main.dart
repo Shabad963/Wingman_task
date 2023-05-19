@@ -1,95 +1,38 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wingman_task/config/check_login.dart';
+import 'package:wingman_task/config/constant.dart';
+import 'package:wingman_task/view/home_view.dart';
 import 'package:wingman_task/view/login_view.dart';
 
-void main() {
-  runApp(const MyApp());
+
+Future<void> main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+   token = await CheckLogin().checkLogin();
+  runApp( MyApp(prefs: prefs,));
 }
+
+late String? token;
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+    final SharedPreferences prefs;
 
-  // This widget is the root of your application.
+  const MyApp({super.key, required this.prefs});
+
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Login',
+      title: 'Wingman Task',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
-      home:  LoginView(),
-    );
-  }
-}
-
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
-  AnimationController? _animationController;
-  Animation<double>? _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 2),
-    );
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController!);
-    _animationController!.forward();
-  }
-
-  @override
-  void dispose() {
-    _animationController!.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 46, 34, 34),
-      appBar: AppBar(
-        title: Text('Login Page'),
-      ),
-      body: Center(
-        child: AnimatedOpacity(
-          opacity: _animation!.value,
-          duration: Duration(seconds: 2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FlutterLogo(
-                size: 100.0,
-              ),
-              SizedBox(height: 50.0),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Username',
-                ),
-              ),
-              SizedBox(height: 20.0),
-              TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                ),
-              ),
-              SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Perform login logic here
-                },
-                child: Text('Login'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      home: token == null ? LoginView() : HomeView(),
     );
   }
 }

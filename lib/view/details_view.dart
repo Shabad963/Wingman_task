@@ -1,20 +1,13 @@
 import 'dart:developer';
 import 'dart:ui' as prefix;
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wingman_task/common/common_widgets.dart';
 import 'package:wingman_task/config/colors.dart';
-import 'package:wingman_task/config/constant.dart';
-import 'package:wingman_task/config/size_config.dart';
 import 'package:wingman_task/config/utils.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:wingman_task/controller/details_controller.dart';
-import 'package:wingman_task/controller/send_otp_controller.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:wingman_task/view/home_view.dart';
-import 'package:wingman_task/view/otp_view.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({
@@ -78,20 +71,14 @@ class _DetailsViewState extends State<DetailsView>
 
   DetailsController controller = Get.put(DetailsController());
 
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(title: "Submit Details"),
+      backgroundColor: white_color,
+      appBar: appBar(title: ""),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.white, Colors.indigo],
-          ),
-        ),
         padding: EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
@@ -134,7 +121,10 @@ class _DetailsViewState extends State<DetailsView>
                   controller: controller.nameController,
                   decoration: InputDecoration(
                       labelText: 'Name', border: OutlineInputBorder()),
-                  obscureText: false,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  // validator: (value) => value != null && value.length < 4
+                  //     ? 'Enter min 4 characters'
+                  //     : null,
                 ),
               ),
               SizedBox(
@@ -156,6 +146,11 @@ class _DetailsViewState extends State<DetailsView>
                   controller: controller.emailController,
                   decoration: InputDecoration(
                       labelText: 'Email', border: OutlineInputBorder()),
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  // validator: (email) =>
+                  //     email != null && !EmailValidator.validate(email)
+                  //         ? 'Enter a valid email'
+                  //         : null,
                 ),
               ),
               SizedBox(
@@ -174,11 +169,7 @@ class _DetailsViewState extends State<DetailsView>
                     children: [
                       ElevatedButton.icon(
                         onPressed: () async {
-                          controller.submitDetails(
-                              name: controller.nameController.text,
-                              email: controller.emailController.text);
-
-                          Get.to(() => HomeView());
+                          controller.submitdetails(context);
                         },
                         label: Text(
                           'Submit',
@@ -186,7 +177,7 @@ class _DetailsViewState extends State<DetailsView>
                         ),
                         style: TextButton.styleFrom(
                             minimumSize: Size.fromHeight(40),
-                            backgroundColor: lightBlueAccent),
+                            backgroundColor: black_color),
                         icon: Icon(Icons.lock),
                       ),
                     ],
@@ -197,4 +188,5 @@ class _DetailsViewState extends State<DetailsView>
       ),
     );
   }
+
 }

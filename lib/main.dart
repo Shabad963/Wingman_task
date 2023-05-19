@@ -6,7 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wingman_task/config/check_login.dart';
 import 'package:wingman_task/config/constant.dart';
 import 'package:wingman_task/view/home_view.dart';
-import 'package:wingman_task/view/login_view.dart';
+import 'package:wingman_task/view/login_view/login_view.dart';
+import 'package:wingman_task/view/splash_screen.dart';
 
 
 Future<void> main()async {
@@ -30,9 +31,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Wingman Task',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.lightBlue,
       ),
-      home: token == null ? LoginView() : HomeView(),
+      home:SplashScreen(token: token, prefs: prefs,),
     );
   }
 }

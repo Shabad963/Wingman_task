@@ -3,10 +3,10 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wingman_task/common/common_widgets.dart';
 import 'package:wingman_task/config/constant.dart';
 import 'package:wingman_task/config/urls.dart';
 import 'package:wingman_task/model/details_model.dart';
-
 
 class DetailsService {
   static Future<DetailsModel?> detailsService({
@@ -29,7 +29,7 @@ class DetailsService {
         log(response.body);
         return DetailsModel.fromJson(jsonDecode(response.body.toString()));
       } else {
-        log(response.body);
+        toaster("Some error occured,try again later");
       }
     } catch (e) {
       log(e.toString());

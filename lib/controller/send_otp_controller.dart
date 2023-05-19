@@ -7,7 +7,6 @@ import 'package:wingman_task/service/send_otp_service.dart';
 class SendOtpController extends GetxController {
   TextEditingController mobileNumber = TextEditingController();
 
-
   RxBool nullData = true.obs;
   final List<SendOtpModel> otpDetail = [];
 
@@ -22,6 +21,7 @@ class SendOtpController extends GetxController {
       var data = await SendOtpService.sendOtpService(mobile: mobile);
 
       if (data != null) {
+        otpDetail.clear;
         otpDetail.add(data);
         nullData(false);
       } else {
@@ -31,7 +31,4 @@ class SendOtpController extends GetxController {
       rethrow;
     }
   }
-
-
-
 }

@@ -4,7 +4,7 @@ import 'package:wingman_task/config/colors.dart';
 
 AppBar appBar({required String title}) {
   return AppBar(
-    elevation: 0,
+      elevation: 0,
       centerTitle: true,
       title: Text(
         title,

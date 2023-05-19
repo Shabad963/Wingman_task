@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:wingman_task/common/common_widgets.dart';
 
 import 'package:wingman_task/config/urls.dart';
 import 'package:wingman_task/model/verify_otp_model.dart';
@@ -22,7 +23,7 @@ class VerifyOtpService {
         log(response.body);
         return VerifyOtpModel.fromJson(jsonDecode(response.body.toString()));
       } else {
-        log(response.body);
+        toaster("Some error occured,try again later");
       }
     } catch (e) {
       log(e.toString());

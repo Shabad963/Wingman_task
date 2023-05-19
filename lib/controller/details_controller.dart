@@ -45,23 +45,17 @@ class DetailsController extends GetxController {
     }
   }
 
-
-
   Future submitdetails(context) async {
-    if (nameController.text.isEmpty ||
-        emailController.text.isEmpty) {
+    if (nameController.text.isEmpty || emailController.text.isEmpty) {
       toaster("Please fill all fields");
     } else {
       loadingBar(context);
       // final isValid = formKey.currentState!.validate();
       // if (!isValid) return;
-      await submitData(
-          name: nameController.text,
-          email: emailController.text);
+      await submitData(name: nameController.text, email: emailController.text);
       Get.back();
 
-      Get.offAll(() => HomeView());
+      Get.offAll(() => HomeView(), transition: Transition.rightToLeftWithFade);
     }
   }
-
 }

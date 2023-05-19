@@ -60,10 +60,10 @@ class VerifyOtpController extends GetxController {
       } else {
         if (verifyDetail[0].profileExists == false) {
           Get.back();
-          Get.to(() => DetailsView());
+          Get.to(() => DetailsView(), transition: Transition.rightToLeft);
         } else {
           Get.back();
-          Get.offAll(() => HomeView());
+          Get.offAll(() => HomeView(), transition: Transition.rightToLeft);
         }
       }
     }

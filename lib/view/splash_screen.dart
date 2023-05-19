@@ -22,7 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
     Timer(
         const Duration(seconds: 4),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -38,9 +37,9 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Padding(
         padding: const EdgeInsets.all(58.0),
         child: CommonText(
-                title: 'Wingman Task',
-                fontsize: 20.0.sp,
-              ),
+          title: 'Wingman Task',
+          fontsize: 20.0.sp,
+        ),
       )),
     );
   }

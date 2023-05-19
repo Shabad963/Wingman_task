@@ -5,7 +5,7 @@ import 'package:wingman_task/common/common_widgets.dart';
 
 import 'package:wingman_task/config/colors.dart';
 import 'package:wingman_task/config/size_config.dart';
-import 'package:wingman_task/config/utils.dart';
+import 'package:wingman_task/common/appbar.dart';
 import 'package:wingman_task/view/login_view/login_view.dart';
 
 class HomeView extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:wingman_task/common/animated_widget.dart';
 import 'package:wingman_task/common/common_widgets.dart';
 import 'package:wingman_task/config/colors.dart';
 import 'package:wingman_task/config/size_config.dart';
-import 'package:wingman_task/config/utils.dart';
+import 'package:wingman_task/common/appbar.dart';
 import 'package:get/get.dart';
 import 'package:wingman_task/controller/details_controller.dart';
 

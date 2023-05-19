@@ -6,7 +6,7 @@ import 'package:otp_text_field/otp_text_field.dart';
 import 'package:wingman_task/common/common_widgets.dart';
 import 'package:wingman_task/config/colors.dart';
 import 'package:wingman_task/config/size_config.dart';
-import 'package:wingman_task/config/utils.dart';
+import 'package:wingman_task/common/appbar.dart';
 import 'package:wingman_task/controller/send_otp_controller.dart';
 import 'package:wingman_task/controller/verfy_otp_controller.dart';
 import 'package:wingman_task/view/otp_view/widgets/otp_field.dart';

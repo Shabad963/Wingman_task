@@ -1,14 +1,11 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wingman_task/common/common_widgets.dart';
-import 'package:wingman_task/config/colors.dart';
 import 'package:wingman_task/config/constant.dart';
 import 'package:wingman_task/model/details_model.dart';
-import 'package:wingman_task/model/send_otp_model.dart';
 import 'package:wingman_task/service/details_service.dart';
-import 'package:wingman_task/service/send_otp_service.dart';
 import 'package:wingman_task/view/home_view.dart';
 
 class DetailsController extends GetxController {
@@ -46,16 +43,23 @@ class DetailsController extends GetxController {
   }
 
   Future submitdetails(context) async {
+    final connectivityResult = await Connectivity().checkConnectivity();
     if (nameController.text.isEmpty || emailController.text.isEmpty) {
       toaster("Please fill all fields");
     } else {
-      loadingBar(context);
-      // final isValid = formKey.currentState!.validate();
-      // if (!isValid) return;
-      await submitData(name: nameController.text, email: emailController.text);
-      Get.back();
+      if (connectivityResult == ConnectivityResult.none) {
+        toaster("No internet connection");
+      } else {
+        loadingBar(context);
+        // final isValid = formKey.currentState!.validate();
+        // if (!isValid) return;
+        await submitData(
+            name: nameController.text, email: emailController.text);
+        Get.back();
 
-      Get.offAll(() => HomeView(), transition: Transition.rightToLeftWithFade);
+        Get.offAll(() => const HomeView(),
+            transition: Transition.rightToLeftWithFade);
+      }
     }
   }
 }

@@ -25,7 +25,7 @@ class OtpField extends StatelessWidget {
       fieldWidth: 45,
       fieldStyle: FieldStyle.box,
       outlineBorderRadius: 15,
-      style: TextStyle(fontSize: 17),
+      style: const TextStyle(fontSize: 17),
       onChanged: (pin) {
         controller.otp = pin;
         log("saved: ${controller.otp}");

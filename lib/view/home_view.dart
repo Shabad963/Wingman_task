@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +15,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: white_color,
+        backgroundColor: whiteColor,
         appBar: appBar(title: "Home"),
         body: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -39,10 +40,15 @@ class HomeView extends StatelessWidget {
   }
 
   Future logOut(context) async {
-    loadingBar(context);
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.clear();
-    Get.back();
-    Get.offAll(() => LoginView());
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      toaster("No internet connection");
+    } else {
+      loadingBar(context);
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      await preferences.clear();
+      Get.back();
+      Get.offAll(() => const LoginView());
+    }
   }
 }

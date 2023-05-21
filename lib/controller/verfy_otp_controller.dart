@@ -1,5 +1,5 @@
-import 'dart:developer';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wingman_task/common/common_widgets.dart';
@@ -48,22 +48,28 @@ class VerifyOtpController extends GetxController {
   }
 
   Future verifyOtp(context) async {
+    final connectivityResult = await Connectivity().checkConnectivity();
+
     if (otp.length < 6) {
       toaster("Enter full otp");
     } else {
-      loadingBar(context);
-      await verifyOtpDetails(
-          requestId: sendOtpController.otpDetail[0].requestId, code: otp);
-      if (verifyDetail[0].status == false) {
-        Get.back();
-        toaster("Invalid otp");
+      if (connectivityResult == ConnectivityResult.none) {
+        toaster("No internet connection");
       } else {
-        if (verifyDetail[0].profileExists == false) {
+        loadingBar(context);
+        await verifyOtpDetails(
+            requestId: sendOtpController.otpDetail[0].requestId, code: otp);
+        if (verifyDetail[0].status == false) {
           Get.back();
-          Get.to(() => DetailsView(), transition: Transition.rightToLeft);
+          toaster("Invalid otp");
         } else {
-          Get.back();
-          Get.offAll(() => HomeView(), transition: Transition.rightToLeft);
+          if (verifyDetail[0].profileExists == false) {
+            Get.back();
+            Get.to(() => const DetailsView(), transition: Transition.rightToLeft);
+          } else {
+            Get.back();
+            Get.offAll(() => const HomeView(), transition: Transition.rightToLeft);
+          }
         }
       }
     }

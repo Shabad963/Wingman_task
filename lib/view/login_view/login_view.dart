@@ -1,4 +1,4 @@
-import 'dart:ui' as prefix;
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:wingman_task/common/common_widgets.dart';
 import 'package:wingman_task/common/animated_widget.dart';
@@ -29,7 +29,7 @@ class _LoginViewState extends State<LoginView>
   void initState() {
     super.initState();
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     _animation =
         Tween<double>(begin: -1.0, end: 0.0).animate(_animationController!);
 
@@ -47,11 +47,10 @@ class _LoginViewState extends State<LoginView>
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: white_color,
+      backgroundColor: whiteColor,
       appBar: appBar(title: ""),
       body: SingleChildScrollView(
         child: Padding(
@@ -63,7 +62,7 @@ class _LoginViewState extends State<LoginView>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               const MainImage(),
+                const MainImage(),
                 SizedBox(
                   height: 2.0.hp,
                 ),
@@ -81,7 +80,7 @@ class _LoginViewState extends State<LoginView>
                 commonButton(
                     context: context,
                     title: 'Continue',
-                    action: () {
+                    action: () async {
                       sendOtp(context);
                     }),
               ],
@@ -93,17 +92,21 @@ class _LoginViewState extends State<LoginView>
   }
 
   Future sendOtp(context) async {
+    final connectivityResult = await Connectivity().checkConnectivity();
     bool number = false;
 
     if (!_formKey.currentState!.validate()) {
       number = false;
       toaster("Enter valid number");
     } else {
-      loadingBar(context);
-      await controller.getOtpDetails(mobile: controller.mobileNumber.text);
-      Get.back();
-      Get.to(() => OtpView(), transition: Transition.rightToLeft);
+      if (connectivityResult == ConnectivityResult.none) {
+        toaster("No internet connection");
+      } else {
+        loadingBar(context);
+        await controller.getOtpDetails(mobile: controller.mobileNumber.text);
+        Get.back();
+        Get.to(() =>  OtpView(), transition: Transition.rightToLeft);
+      }
     }
   }
 }
-

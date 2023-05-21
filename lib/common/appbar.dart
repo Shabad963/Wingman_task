@@ -8,11 +8,11 @@ AppBar appBar({required String title}) {
       centerTitle: true,
       title: Text(
         title,
-        style: TextStyle(color: black_color),
+        style: const TextStyle(color: blackColor),
       ),
       backgroundColor: Colors.white,
       systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: white_color,
+        statusBarColor: whiteColor,
         statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
         statusBarBrightness: Brightness.light,
       ));

@@ -23,7 +23,7 @@ class OtpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white_color,
+      backgroundColor: whiteColor,
       appBar: appBar(title: ""),
       body: Padding(
         padding: const EdgeInsets.all(18.0),

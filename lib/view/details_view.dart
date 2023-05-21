@@ -1,4 +1,3 @@
-import 'dart:ui' as prefix;
 import 'package:flutter/material.dart';
 import 'package:wingman_task/common/animated_widget.dart';
 import 'package:wingman_task/common/common_widgets.dart';
@@ -30,19 +29,18 @@ class _DetailsViewState extends State<DetailsView>
   @override
   void initState() {
         super.initState();
-    // TODO: implement initState
     _animationController1 =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _animation1 =
         Tween<double>(begin: -1.0, end: 0.0).animate(_animationController1!);
 
     _animationController2 =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _animation2 =
         Tween<double>(begin: -1.0, end: 0.0).animate(_animationController2!);
 
     _animationController3 =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _animation3 =
         Tween<double>(begin: 1.0, end: 0.0).animate(_animationController3!);
 
@@ -70,7 +68,7 @@ class _DetailsViewState extends State<DetailsView>
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: white_color,
+      backgroundColor: whiteColor,
       appBar: appBar(title: ""),
       body: Padding(
         padding: const EdgeInsets.all(18.0),

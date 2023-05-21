@@ -10,7 +10,7 @@ class SplashScreen extends StatefulWidget {
   final SharedPreferences prefs;
   final String? token;
 
-  SplashScreen({super.key, required this.prefs, required this.token});
+ const SplashScreen({super.key, required this.prefs, required this.token});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -24,13 +24,13 @@ class _SplashScreenState extends State<SplashScreen> {
         const Duration(seconds: 2),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) =>
-                widget.token == null ? LoginView() : HomeView())));
+                widget.token == null ? const LoginView() : const HomeView())));
   }
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: white_color,
+      backgroundColor: whiteColor,
       body: Center(
           child: Padding(
         padding:  EdgeInsets.all(58.0),
